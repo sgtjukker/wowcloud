@@ -1,0 +1,14 @@
+steps:
+  - name: 'launcher.gcr.io/google/nodejs'
+    args: ['npm', 'install']
+  - name: 'launcher.gcr.io/google/nodejs'
+    args: ['npm', 'install', '--only=dev']
+  - name: 'launcher.gcr.io/google/nodejs'
+    args: ['npm', 'test']
+    env:
+      - CI=true
+  - name: 'launcher.gcr.io/google/nodejs'
+    args: ['npm', 'run', 'build']
+  - name: 'gcr.io/cloud-builders/gsutil'
+    dir: 'build'
+    args: ['-m', 'cp', '-r', '.', 'gs://www.wowcloud.xyz/profile' ]

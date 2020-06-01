@@ -1,0 +1,124 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Profile API Rocks!",
+    "description": "We got milk!"
+  },
+  "host": "localhost:8080",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Profile",
+      "description": "API to get Profile data"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/profiles": {
+      "post": {
+        "tags": ["Profile"],
+        "description": "Create new Profile in system",
+        "parameters": [
+          {
+            "name": "Profile",
+            "in": "body",
+            "description": "Profile that we want to create",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New Profile is created",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        }
+      }
+    },
+    "/profiles/{customerID}": {
+      "parameters": [
+        {
+          "name": "customerID",
+          "in": "path",
+          "required": true,
+          "description": "ID of customer that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Get Profile with given ID",
+        "responses": {
+          "200": {
+            "description": "Profile is found",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Profile with given ID",
+        "tags": ["Profile"],
+        "responses": {
+          "200": {
+            "description": "Profile is deleted",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Profile with give ID",
+        "tags": ["Profile"],
+        "parameters": [
+          {
+            "name": "Profile",
+            "in": "body",
+            "description": "Profile with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile is updated",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Profile": {
+      "required": ["customerID", "_id"],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
